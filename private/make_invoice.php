@@ -80,7 +80,7 @@
 			
 		} else {
             if($row[0]['status'] == "fixed/completed") {
-                if($row[0]['invoice_num'] == "") {
+                if((int) $row[0]['invoice_num'] == 0) {
                     echo '<!doctype html>';
                     echo '<html lang="en">';
                     echo '<head>';
@@ -88,7 +88,7 @@
                     echo '</head>';
                     echo '<body>';
                     include('../public/components/navbar.php');
-                    echo '<div class="container"><br><br><br><br><br>';
+                    echo '<div class="container form-invoice"><br><br><br><br><br>';
                     echo '<h1 class=\"h3 mb-3 font-weight-normal\">Booking reference number: ', $row[0]['id'], '</h1>';
                     echo '<p>Date: <b>', $row[0]['date'], '</b><br>';
                     echo 'Time: <b>', $row[0]['time'], '</b><br>';
@@ -129,16 +129,16 @@
                         $j++;
                     }
 
-                    echo '<table>';
+                    echo '<table style="width:571px">';
                     echo '<tr>';
-                    echo '<th colspan="3">BASE COST</th>';
+                    echo '<th colspan="3" style="background-color:black;color:white">BASE COST</th>';
                     echo '</tr>';
                     echo '<tr>';
                     echo '<td style="width:400px">', $row[0]['service_description'], '</td>';
                     echo '<td  colspan="2">€', $row[0]['service_price'], '.00</td>';
                     echo '</tr>';
                     echo '<tr>';
-                    echo '<th colspan="3">EXTRA PARTS</th>';
+                    echo '<th colspan="3" style="background-color:black;color:white">EXTRA PARTS</th>';
                     echo '</tr>';
                     if(sizeof($parts) > 0) {
                         
@@ -148,12 +148,12 @@
                             <td>€', number_format($parts[$i]['part_price'], 2, '.', ''), '</td>
                             <td><form action="./controllers/delete_part_from_booking.php" method="POST" enctype="application/x-www-form-urlencoded">
                             <input id="inputBookingNumber" type="text" class="form-control" value="', $booking_id, '" placeholder="" name="booking_num" hidden>
-                            <button class="btn btn-sm btn-danger" type="submit" value="', $parts[$i]['part_used_id'], '" name="deletePart">Delete</button>
+                            <button class="btn btn-sm btn-block btn-danger" type="submit" value="', $parts[$i]['part_used_id'], '" name="deletePart">Delete</button>
                             </form></td></tr>';
                         }
                     }
                     echo '<tr><td colspan="3">
-                    <form class="form-booking" action="./controllers/add_part_to_booking.php" method="POST" enctype="application/x-www-form-urlencoded">
+                    <form class="form-extras"" action="./controllers/add_part_to_booking.php" method="POST" enctype="application/x-www-form-urlencoded">
                         <div class="form-group">
                             <select class="form-control" name="part_id">';
                                 
@@ -176,7 +176,7 @@
                     
                     </form></td></tr>';
                     echo '<tr>';
-                    echo '<th colspan="3">EXTRA COSTS/DISCOUNTS</th>';
+                    echo '<th colspan="3" style="background-color:black;color:white">EXTRA COSTS/DISCOUNTS</th>';
                     echo '</tr>';
                     if(sizeof($extras) > 0) {
                         
@@ -186,7 +186,7 @@
                             <td>€', number_format($extras[$i]['price'], 2, '.', ''), '</td>
                             <td><form action="./controllers/delete_extra_from_booking.php" method="POST" enctype="application/x-www-form-urlencoded">
                             <input id="inputBookingNumber" type="text" class="form-control" value="', $booking_id, '" placeholder="" name="booking_num" hidden>
-                            <button class="btn btn-sm btn-danger" type="submit" value="', $extras[$i]['extra_id'], '" name="deleteExtra">Delete</button>
+                            <button class="btn btn-sm btn-danger btn-block" type="submit" value="', $extras[$i]['extra_id'], '" name="deleteExtra">Delete</button>
                             </form></td></tr>';
                         }
                     }
@@ -194,7 +194,7 @@
                     
 
                     echo '<tr><td colspan="3">
-                    <form class="form-booking" action="./controllers/add_extra_to_booking.php" method="POST" enctype="application/x-www-form-urlencoded">
+                    <form class="form-extras" action="./controllers/add_extra_to_booking.php" method="POST" enctype="application/x-www-form-urlencoded">
                     
                         <div class="form-group">
                             <label>Type in description:</label>
@@ -213,9 +213,9 @@
                     echo '<th>TOTAL</th>';
                     echo '<th colspan="2">€', $total, '</th>';
                     echo '</tr>';
-                    echo '</table>';
+                    echo '</table><br><br>';
                     echo    '<form action="./controllers/generate_invoice.php" method="POST">
-                                <button  class="btn btn-sm btn-primary btn-block" type="submit" value="', $booking_id, '" name="genInvoice">Add extra to booking</button>           
+                                <button  class="btn btn-lg btn-success btn-block" type="submit" value="', $booking_id, '" name="genInvoice">Generate invoice</button>           
                             </form>';
                     echo '</div>';
                     include('../public/components/footer.php');

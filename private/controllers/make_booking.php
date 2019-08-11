@@ -13,7 +13,7 @@
         $userId = $_SESSION['userId'];
         $status = "booked";
 		$time = "";
-		$invoice_num = "";
+		$invoice_num = 0;
 		$mechanic_id = "";
 		
 		$check = $db->query("INSERT INTO booking (date, time, vehicle_id, service_id, user_id, status, comments, invoice_num, mechanic_id) 

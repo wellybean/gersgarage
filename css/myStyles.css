@@ -9,9 +9,17 @@
 .form-register-vehicle,
 .form-booking,
 .form-previous-bookings,
-.form-checker {
+.form-checker,
+.form-invoice {
   width: 100%;
   max-width: 600px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-extras {
+  width: 100%;
+  max-width: 250px;
   padding: 15px;
   margin: auto;
 }

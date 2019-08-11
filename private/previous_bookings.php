@@ -23,9 +23,8 @@
             $row[$i]['invoice_num'] = $res['invoice_num'];
             $mecId = $res['mechanic_id'];
             
-            echo $mecId;
-            if($mecId == NULL || $mecId = "") {
-                $row[$i]['mechanic_name'] = NULL;
+            if($mecId = "") {
+                $row[$i]['mechanic_name'] = "";
             } else {
                 $mechanic = $db->query("SELECT * FROM mechanic WHERE id = '$mecId';");
                 while($mecRes = $mechanic->fetchArray(SQLITE3_ASSOC)) {
@@ -87,7 +86,7 @@
                 echo $row[$i]['service_duration'];
                 echo " minutes</b><br>";
                 echo "Mechanic: <b>";
-                if($row[$i]['mechanic_name'] == NULL) {
+                if($mecId == "") {
                     echo "not yet assigned";
                 } else {
                     echo $row[$i]['mechanic_name'];
